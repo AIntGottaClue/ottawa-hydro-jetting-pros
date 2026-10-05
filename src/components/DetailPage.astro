@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Hero from './Hero.astro';
 import Callout from './Callout.astro';
-import { u } from '../lib/utils';
+import { u, linkify, sourceSentence } from '../lib/utils';
 import { faqSchema } from '../lib/seo';
 const { path, title, description, h1, intro, lead = [], sections = [], faqs = [], sources = [], related = [], parent, name, location, service = false, legal = false } = Astro.props;
 const crumbs = [...(parent ? [{ name: parent.name, path: parent.path }] : []), { name, path }];
@@ -25,11 +25,8 @@ const heroCrumbs = crumbs.map((c) => ({ href: c.path, label: c.name }));
   {faqs.length > 0 && (
     <section class="content-section" style="background:#eeece2"><div class="content-inner prose">
       <h2 class="section-title" style="font-size:clamp(26px,3vw,38px)">Questions about this drain problem</h2>
-      <div class="content-list">{faqs.map((f) => <article class="faq-row"><h3>{f.q}</h3><p>{f.a}</p></article>)}</div>
-      {sources.length > 0 && (<>
-        <h3 style="margin:36px 0 10px;font-family:'Space Grotesk Variable','Space Grotesk',sans-serif">Local sources</h3>
-        <ul style="padding-left:20px;margin:0">{sources.map((s) => <li style="margin:6px 0"><a href={s.url} target="_blank" rel="noopener noreferrer" style="text-decoration:underline">{s.label}</a></li>)}</ul>
-      </>)}
+      <div class="content-list">{faqs.map((f) => <article class="faq-row"><h3>{f.q}</h3><p set:html={linkify(f.a)} /></article>)}</div>
+      {sources.length > 0 && <p style="margin-top:32px" set:html={sourceSentence(sources)} />}
     </div></section>
   )}
   {!legal && <Callout />}

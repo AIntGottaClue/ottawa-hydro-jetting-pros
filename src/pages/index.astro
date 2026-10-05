@@ -5,7 +5,7 @@ import Callout from '../components/Callout.astro';
 import { C, services } from '../data/pages';
 import { neighborhoods } from '../data/neighborhoods';
 import { faqSchema } from '../lib/seo';
-import { u } from '../lib/utils';
+import { u, linkify } from '../lib/utils';
 const home = C['/'];
 const [s1, s2, s3, s4] = home.sections;
 const faqs = [...home.faqs, { q: 'Does plumbing work in Ottawa need a permit?', a: 'Ottawa has adopted the 2018 International Plumbing Code and posts its permit applications on the city Building Codes page. Whether a given job needs a permit depends on the work, so ask the city before starting.' }];
@@ -50,8 +50,7 @@ const steps = [
   </div></section>
   <section class="content-section"><div class="content-inner">
     <h2 class="section-title">Questions worth asking before hydro jetting.</h2>
-    <div class="content-list">{faqs.map((f) => <article class="faq-row"><h3>{f.q}</h3><p>{f.a}</p></article>)}</div>
-    <p class="section-intro" style="margin-top:20px;font-size:13px">Permit source: <a href="https://www.ottawaks.gov/205/Building-Codes" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">City of Ottawa, KS Building Codes</a>.</p>
+    <div class="content-list">{faqs.map((f) => <article class="faq-row"><h3>{f.q}</h3><p set:html={linkify(f.a)} /></article>)}</div>
   </div></section>
   <Callout />
 </Base>
