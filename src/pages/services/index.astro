@@ -8,7 +8,7 @@ const title = 'Hydro Jetting Services in Ottawa, KS | Ottawa Hydro Jetting Pros'
 const description = 'Hydro jetting for grease, roots, recurring clogs, mineral buildup and maintenance on drain and sewer lines in Ottawa, Kansas.';
 ---
 <Base title={title} description={description} path="/services/" crumbs={[{ name: 'Services', path: '/services/' }]}>
-  <Hero headline="Hydro jetting services in Ottawa, KS" intro="Each service page covers a different kind of blockage and when a closer look at the pipe matters." location="Services" crumbs={[{ href: '/services/', label: 'Services' }]} />
+  <Hero headline="Hydro Jetting Services in Ottawa, KS" intro="Each service page covers a different kind of blockage and when a closer look at the pipe matters." location="Services" crumbs={[{ href: '/services/', label: 'Services' }]} />
   <section class="content-section"><div class="content-inner">
     <div class="content-list">
       {services.map((s, i) => <article class="content-item"><div class="item-number">{String(i + 1).padStart(2, '0')}</div><div><h3><a href={u(`/services/${s.slug}/`)} style="color:inherit">{s.name}</a></h3><p>{s.blurb}</p></div></article>)}

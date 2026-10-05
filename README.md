@@ -1,8 +1,7 @@
-# Ottawa Hydro Jetting Pros
+# Tallmadge Hydro Jetting Pros
 
-Astro site (light cream and teal template), rebuilt for Ottawa, Kansas.
+Astro rebuild of the Replit design (AIntGottaClue/Replit-Tallmadge-Hydro-Jetting-Pros-Website). Plain CSS, static output.
 
-- Phone, GA4 and tracker ID: edit only `src/data/siteConfig.ts`.
-- Services and guides copy: `src/data/content.json`. Neighborhood pages and sources: `src/data/neighborhoods.ts`.
-- Preview: GitHub Pages (the workflow sets `BASE`). Real-domain builds use the default base `/`.
-- Privacy and Terms are intentionally left out of the sitemap.
+- Phone, GA4 ID, tracker ID and origin: `src/data/siteConfig.ts`
+- Page copy: `src/data/pages.ts`. Service area pages: `src/data/areas.ts`
+- Preview build uses base `/tallmadge-hydro-jetting-pros`. For a real domain build with `BASE=/ npm run build`.

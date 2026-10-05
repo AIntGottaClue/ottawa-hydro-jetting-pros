@@ -10,7 +10,7 @@ export const neighborhoods: Neighborhood[] = [
   {
     slug: 'downtown-ottawa',
     name: 'Downtown Ottawa',
-    h1: 'Hydro jetting in Downtown Ottawa, KS',
+    h1: 'Hydro Jetting in Downtown Ottawa, KS',
     title: 'Hydro Jetting in Downtown Ottawa, KS | Ottawa Hydro Jetting Pros',
     description: 'Drain and sewer cleaning questions for older buildings and homes around Main Street in downtown Ottawa, Kansas.',
     intro: 'Downtown Ottawa sits just south of the Marais des Cygnes River and runs along Main Street. The blocks around it are among the older parts of town, so the pipe under a building here may have been repaired or replaced in pieces over the years.',
@@ -40,7 +40,7 @@ export const neighborhoods: Neighborhood[] = [
   {
     slug: 'ottawa-university-area',
     name: 'Ottawa University Area',
-    h1: 'Hydro jetting near Ottawa University, KS',
+    h1: 'Hydro Jetting Near Ottawa University, Ottawa KS',
     title: 'Hydro Jetting Near Ottawa University, Ottawa KS | Ottawa Hydro Jetting Pros',
     description: 'Drain and sewer cleaning questions for homes and rentals around the Ottawa University campus in Ottawa, Kansas.',
     intro: 'Ottawa University was founded in 1865 on the Marais des Cygnes River. Its first campus building went up in 1869, burned in 1875 and was rebuilt in 1876. That building still stands as Tauy Jones Hall.',
@@ -67,7 +67,7 @@ export const neighborhoods: Neighborhood[] = [
   {
     slug: 'forest-park-area',
     name: 'Forest Park Area',
-    h1: 'Hydro jetting near Forest Park, Ottawa KS',
+    h1: 'Hydro Jetting Near Forest Park, Ottawa KS',
     title: 'Hydro Jetting Near Forest Park, Ottawa KS | Ottawa Hydro Jetting Pros',
     description: 'Drain and sewer cleaning questions for homes near Forest Park in the northwest part of Ottawa, Kansas.',
     intro: 'Forest Park is on the northwest corner of Ottawa. The city notes its mature oak and walnut trees along with a municipal pool, tennis courts, ball fields, a disc golf course and playgrounds.',
