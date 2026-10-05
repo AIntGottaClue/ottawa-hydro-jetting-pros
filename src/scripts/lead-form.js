@@ -1,39 +1,3 @@
-// Version the stylesheet so new navigation styles replace cached previews.
-const menu = document.querySelector('[data-menu-button]');
-// Keep the existing links and branding; reuse the Fix & Flip three-line toggle and submenu.
-if (menu) { menu.setAttribute('aria-label', 'Toggle menu'); menu.innerHTML = '<span></span><span></span><span></span>'; }
-const serviceLinks = [['Severe Grease and Sludge','severe-grease-and-sludge'],['Tree Root Intrusions','tree-root-intrusions'],['Recurring Clogs and Slow Drains','recurring-clogs-and-slow-drains'],['Mineral and Scale Deposits','mineral-and-scale-deposits'],['Preventative Maintenance','preventative-maintenance']];
-const menuNav = document.querySelector('[data-nav]');
-if (menuNav) {
- const area = document.createElement('div'); area.className = 'navlinks__dropdown';
- const trigger = document.createElement('button'); trigger.type = 'button'; trigger.className = 'navlinks__dropdown-trigger'; trigger.setAttribute('aria-expanded','false'); trigger.setAttribute('aria-controls','services-menu'); trigger.innerHTML = 'Services <span aria-hidden="true">⌄</span>';
- const panel = document.createElement('div'); panel.className = 'navlinks__dropdown-menu'; panel.id = 'services-menu';
- const siteBase = new URL('../', document.querySelector('script[src*="/assets/site.js"]').src).pathname;
- serviceLinks.forEach(([name,slug]) => { const a = document.createElement('a'); a.href = siteBase + slug + '/'; a.textContent = name; panel.append(a); });
- area.append(trigger,panel);
- const servicesAnchor = menuNav.querySelector('a[href$="#services"]');
- if (servicesAnchor) { menuNav.insertBefore(area, servicesAnchor); servicesAnchor.remove(); } else { menuNav.insertBefore(area, menuNav.lastElementChild); }
-}
-
-const neighborhoodLinks = [['Downtown Ottawa','downtown-ottawa'],['Ottawa University Area','ottawa-university-area'],['Wellsville','wellsville'],['Williamsburg','williamsburg']];
-if (menuNav) {
- const nbArea = document.createElement('div'); nbArea.className = 'navlinks__dropdown';
- const nbTrigger = document.createElement('button'); nbTrigger.type = 'button'; nbTrigger.className = 'navlinks__dropdown-trigger'; nbTrigger.setAttribute('aria-expanded','false'); nbTrigger.setAttribute('aria-controls','neighborhoods-menu'); nbTrigger.innerHTML = 'Neighborhoods <span aria-hidden="true">⌄</span>';
- const nbPanel = document.createElement('div'); nbPanel.className = 'navlinks__dropdown-menu'; nbPanel.id = 'neighborhoods-menu';
- const nbBase = new URL('../', document.querySelector('script[src*="/assets/site.js"]').src).pathname;
- neighborhoodLinks.forEach(([name,slug]) => { const a = document.createElement('a'); a.href = nbBase + slug + '/'; a.textContent = name; nbPanel.append(a); });
- nbArea.append(nbTrigger, nbPanel);
- const servicesDropdown = menuNav.querySelector('.navlinks__dropdown');
- if (servicesDropdown) { servicesDropdown.after(nbArea); } else { menuNav.insertBefore(nbArea, menuNav.lastElementChild); }
-}
-
-const nav = document.querySelector('[data-nav]');
-const dropdowns = [...document.querySelectorAll('.navlinks__dropdown')];
-function setDropdown(dd, open) { dd.classList.toggle('open', open); dd.querySelector('button')?.setAttribute('aria-expanded', String(open)); }
-menu?.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(open)); if (!open) dropdowns.forEach(dd => setDropdown(dd, false)); });
-dropdowns.forEach(dd => { dd.querySelector('button')?.addEventListener('click', () => { const open = !dd.classList.contains('open'); dropdowns.forEach(other => setDropdown(other, other === dd ? open : false)); }); });
-document.addEventListener('click', e => { dropdowns.forEach(dd => { if (!dd.contains(e.target)) setDropdown(dd, false); }); });
-nav?.addEventListener('click', e => { if (e.target.closest('a')) { nav.classList.remove('open'); menu?.setAttribute('aria-expanded', 'false'); } });
 /* Confirm the exact form POST before displaying success. The tracker also watches
    button clicks, so reject invalid clicks before its fallback can queue them. */
 const activeLeads = new Map();
@@ -44,12 +8,13 @@ document.querySelectorAll('[data-lead-form]').forEach(form => {
   success.className = 'lead-success'; success.hidden = true;
   success.setAttribute('role', 'status'); success.setAttribute('aria-live', 'polite');
   success.setAttribute('tabindex', '-1');
-  success.innerHTML = '<svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="5"/><path d="M21 33.5l7.5 7.5L43.5 25" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>Request Received</h2><p>We have your hydro jetting request and will review the details. Watch your phone and email for a response.</p><button type="button" class="lead-success__again">Submit another request</button>';
+  success.innerHTML = '<svg style="color:#22c55e" viewBox="0 0 64 64" width="72" height="72" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="5"/><path d="M21 33.5l7.5 7.5L43.5 25" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h2>Request Received</h2><p>We have your hydro jetting request and will review the details. Watch your phone and email for a response.</p><button type="button" class="lead-success__again">Submit another request</button>';
   card.append(success); cards.set(form, {card, success});
   success.querySelector('button').addEventListener('click', () => {
     form.reset(); form.elements.phone.setCustomValidity('');
     form.querySelector('[role="status"]').textContent = '';
     activeLeads.delete(form); success.hidden = true; form.hidden = false;
+    card.querySelector('.form-card-head').style.display = '';
     form.elements.full_name.focus();
   });
 });
@@ -112,7 +77,7 @@ window.fetch = function(url,options) {
           activeLeads.delete(form);
           const view=cards.get(form);
           form.querySelector('[role="status"]').textContent='';
-          form.hidden=true; view.success.hidden=false;
+          form.hidden=true; view.card.querySelector('.form-card-head').style.display='none'; view.success.hidden=false;
           view.success.scrollIntoView({behavior:'smooth',block:'center'});
           view.success.focus({preventScroll:true});
         })).catch(() => {
@@ -126,4 +91,3 @@ window.fetch = function(url,options) {
   } catch(err) { /* Leave the tracker undisturbed. */ }
   return pending;
 };
-

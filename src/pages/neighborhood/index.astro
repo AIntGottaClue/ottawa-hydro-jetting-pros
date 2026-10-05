@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Callout from '../../components/Callout.astro';
+import { neighborhoods } from '../../data/neighborhoods';
+import { u } from '../../lib/utils';
+const title = 'Ottawa, KS Neighborhoods | Ottawa Hydro Jetting Pros';
+const description = 'Hydro jetting questions for Downtown Ottawa, the Ottawa University area and the Forest Park area in Ottawa, Kansas.';
+---
+<Base title={title} description={description} path="/neighborhood/" crumbs={[{ name: 'Neighborhoods', path: '/neighborhood/' }]}>
+  <Hero headline="Neighborhoods in Ottawa, KS" intro="Drain problems are local, and so is the housing. Read about three parts of Ottawa." location="Neighborhoods" crumbs={[{ href: '/neighborhood/', label: 'Neighborhoods' }]} />
+  <section class="content-section"><div class="content-inner">
+    <div class="content-list">
+      {neighborhoods.map((n, i) => <article class="content-item"><div class="item-number">{String(i + 1).padStart(2, '0')}</div><div><h3><a href={u(`/neighborhood/${n.slug}/`)} style="color:inherit">{n.name}</a></h3><p>{n.intro}</p></div></article>)}
+    </div>
+  </div></section>
+  <Callout />
+</Base>
